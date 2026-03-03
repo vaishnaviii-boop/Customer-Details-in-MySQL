@@ -1,0 +1,80 @@
+import mysql.connector as p
+
+con = p.connect(host="localhost",user="root",password="your_password",database="customer_db")
+
+cur = con.cursor()
+
+# Create table
+cur.execute("CREATE TABLE customers (customer_id INT PRIMARY KEY,name VARCHAR(50),email VARCHAR(50),phone VARCHAR(15),branch VARCHAR(30))")
+
+# Insert initial data
+cur.execute("""
+INSERT INTO customers VALUES
+(1, 'Anu', 'anu@email.com', '9876543210', '0001'),
+(2, 'Rahul', 'rahul@email.com', '9123456780', '0004'),
+(3, 'Meera', 'meera@email.com', '9012345678', '0001'),
+(4, 'Arjun', 'arjun@email.com', '9988776655', '0002')
+""")
+
+con.commit()
+
+# Menu driven program
+while True:
+
+    print("\n---------- MENU ----------")
+    print("1. Add customer")
+    print("2. Update phone number")
+    print("3. Delete customer")
+    print("4. Exit")
+
+    ch = int(input("Enter your choice: "))
+
+    # ADD CUSTOMER
+    if ch == 1:
+        customer_id = int(input("Enter customer id: "))
+        name = input("Enter name: ")
+        email = input("Enter email id: ")
+        phone = input("Enter phone number: ")
+        branch = input("Enter branch: ")
+
+        cur.executecur.execute("INSERT IGNORE INTO customers VALUES (%s,%s,%s,%s,%s)",(customer_id, name, email, phone, branch))
+
+        con.commit()
+        print("✅ Customer added successfully!")
+
+    # UPDATE PHONE
+    elif ch == 2:
+        new_phone = input("Enter new phone number: ")
+        update_id = int(input("Enter customer ID to update: "))
+
+        cur.execute(
+            "UPDATE customers SET phone=%s WHERE customer_id=%s",
+            (new_phone, update_id)
+        )
+
+        con.commit()
+        print(" Customer updated successfully!")
+
+    # DELETE CUSTOMER
+    elif ch == 3:
+        cid = int(input("Enter customer ID to delete: "))
+
+        cur.execute(
+            "DELETE FROM customers WHERE customer_id=%s",
+            (cid,)
+        )
+
+        con.commit()
+        print("✅ Customer deleted successfully!")
+
+    # EXIT
+    elif ch == 4:
+        print("Thank you! Visit again ")
+        break
+
+    else:
+        print("Invalid choice!")
+
+
+con.commit()
+  
