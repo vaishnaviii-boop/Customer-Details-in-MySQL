@@ -68,12 +68,12 @@ while True:
     # VIEW
     elif ch == 4:
 
-    print("\n----- Customer Data -----")
-    cur.execute("SELECT * FROM customers")
-    rows = cur.fetchall()
+       print("\n----- Customer Data -----")
+       cur.execute("SELECT * FROM customers")
+       rows = cur.fetchall()
 
-    for row in rows:
-        print(row)
+       for row in rows:
+          print(row)
         
     # EXIT
     elif ch == 5:
